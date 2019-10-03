@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Finance.Secure.Extensions;
+using System;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
@@ -28,11 +28,11 @@ namespace Finance.Secure.Crypto
             byte[] vectorBytes = GetBytes<ASCIIEncoding>(VECTOR);
             byte[] saltBytes = GetBytes<ASCIIEncoding>(SALT_VAL);
             byte[] valueBytes = GetBytes<UTF8Encoding>(value);
-            byte[] secPasswordBytes = GetBytes(password);
+            
             byte[] encrypted;
             using (T cipher = new T())
             {
-                PasswordDeriveBytes _passwordBytes = new PasswordDeriveBytes(secPasswordBytes, saltBytes, HASH, ITERATION_CYCLES);
+                PasswordDeriveBytes _passwordBytes = new PasswordDeriveBytes(password.GetBytes(), saltBytes, HASH, ITERATION_CYCLES);
                 byte[] keyBytes = _passwordBytes.GetBytes(KEY_SIZE / 8);
 
                 cipher.Mode = CipherMode.CBC;
@@ -67,13 +67,12 @@ namespace Finance.Secure.Crypto
             byte[] vectorBytes = GetBytes<ASCIIEncoding>(VECTOR);
             byte[] saltBytes = GetBytes<ASCIIEncoding>(SALT_VAL);
             byte[] valueBytes = Convert.FromBase64String(value);
-            byte[] secPasswordBytes = GetBytes(password);
             byte[] decrypted;
             int decryptedByteCount = 0;
 
             using (T cipher = new T())
             {
-                PasswordDeriveBytes _passwordBytes = new PasswordDeriveBytes(secPasswordBytes, saltBytes, HASH, ITERATION_CYCLES);
+                PasswordDeriveBytes _passwordBytes = new PasswordDeriveBytes(password.GetBytes(), saltBytes, HASH, ITERATION_CYCLES);
                 byte[] keyBytes = _passwordBytes.GetBytes(KEY_SIZE / 8);
 
                 cipher.Mode = CipherMode.CBC;
@@ -101,24 +100,6 @@ namespace Finance.Secure.Crypto
         private static byte[] GetBytes<T>(string input) where T : Encoding
         {
             return Activator.CreateInstance<T>().GetBytes(input);
-        }
-
-        private static byte[] GetBytes(SecureString input)
-        {
-            IntPtr unmanagedBytes = IntPtr.Zero;
-            try
-            {
-                unmanagedBytes = Marshal.SecureStringToGlobalAllocUnicode(input);
-                
-                //TODO: validate safety...
-                string unprotectedString = Marshal.PtrToStringUni(unmanagedBytes);
-                return GetBytes<ASCIIEncoding>(unprotectedString);
-            }
-            finally
-            {
-                // This will completely remove the data from memory
-                Marshal.ZeroFreeGlobalAllocUnicode(unmanagedBytes);
-            }
         }
     }
 }
