@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Finance.Secure.Crypto;
+using Finance.Secure.Password;
+using System;
 using System.Security;
+using System.Security.Cryptography;
 
 namespace FinanceDriver
 {
@@ -23,36 +26,18 @@ namespace FinanceDriver
             Console.Write("Username: ");
             string userName = Console.ReadLine();
             Console.Write("Password: ");
-            SecureString secPassword = GetPassword();
+            SecureString secPassword = ConsoleManager.GetPassword();
+            Console.WriteLine();
+            Console.WriteLine();
+
+            var encrypted = CryptoProvider.Encrypt<AesManaged>("This is a test", secPassword);
+            Console.WriteLine(encrypted);
+
+            var decrypted = CryptoProvider.Decrypt<AesManaged>(encrypted, secPassword);
+            Console.WriteLine(decrypted);
 
 
-
-         }
-
-        private static SecureString GetPassword()
-        {
-            SecureString secPassword = new SecureString();
-            do
-            {
-                ConsoleKeyInfo key = Console.ReadKey(true);
-                if (key.Key == ConsoleKey.Enter) { break; } //exit loop
-
-                if (key.Key != ConsoleKey.Backspace)
-                {
-                    secPassword.AppendChar(key.KeyChar);
-                    Console.Write("*");
-                }
-                else if (secPassword.Length > 0)
-                {
-                    secPassword.RemoveAt(secPassword.Length - 1);
-                    Console.Write("\b \b");
-                }
-
-            } while (true);
-            secPassword.MakeReadOnly();
-            return secPassword;
-        }
-
+         } 
 
     }
 }
