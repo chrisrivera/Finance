@@ -4,9 +4,9 @@
 ---------------------------------------------------------------------------------------------------------------------------------------
 Dependancies:
 
-Microsoft.EntityFrameworkCore				https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.0.0?_src=template
+Microsoft.EntityFrameworkCore			https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.0.0?_src=template
 Microsoft.EntityFrameworkCore.SqlServer		https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/3.0.0?_src=template
-Microsoft.EntityFrameworkCore.Tools			https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools/3.0.0?_src=template
+Microsoft.EntityFrameworkCore.Tools		https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools/3.0.0?_src=template
 
 ---------------------------------------------------------------------------------------------------------------------------------------
 VS: set startup project to Finanace.DataAccess
