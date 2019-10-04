@@ -11,20 +11,20 @@ namespace FinanceDriver
     class Program
     {
         static void Main(string[] args)
-        {   
+        {
             /*********************************************************
             the idea here is to manage and update financial records
             
             REQUIREMENTS:
             ===================
-            01  need records to be stored in database (encrypted)
-            02  password storage
-            03  .net core
-            04  data layer extracted via interface
-            05  dependancy injection for unit testing
+            ✔  need records to be stored in database (encrypted)
+            ✔  password storage
+            ✔  .net core
+            ☐  data layer extracted via interface
+            ☐  dependancy injection for unit testing
 
-            userName: test
-            password: Password1
+                userName: test
+                password: Password1
 
             *********************************************************/
             Console.Write("Username: ");
@@ -33,10 +33,11 @@ namespace FinanceDriver
             SecureString secPassword = ConsoleManager.GetPassword();
             Console.WriteLine();
             Console.WriteLine();
-            var hash = HashManager.GetHash(secPassword);
+            
 
             using (FinanceContext context = new FinanceContext())
             {
+                //var hash = HashManager.GetHash(secPassword);
                 //context.Add(new User() { UserName = userName, Password = hash });
                 //context.SaveChanges();
 
