@@ -97,7 +97,7 @@ namespace Finance.Secure.Crypto
             return Encoding.UTF8.GetString(decrypted, 0, decryptedByteCount);
         }
 
-        private static byte[] GetBytes<T>(string input) where T : Encoding
+        public static byte[] GetBytes<T>(string input) where T : Encoding
         {
             return Activator.CreateInstance<T>().GetBytes(input);
         }

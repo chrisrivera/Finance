@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Finance.DataAccess\Finance.DataAccess.csproj" />
     <ProjectReference Include="..\Finance.Secure\Finance.Secure.csproj" />
   </ItemGroup>
 
