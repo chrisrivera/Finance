@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Finance.Secure.Crypto
 {
-    public static class CryptoProvider
+    internal static class CryptoProvider
     {
         private static int ITERATION_CYCLES = 2;
         private static int KEY_SIZE = 256;
