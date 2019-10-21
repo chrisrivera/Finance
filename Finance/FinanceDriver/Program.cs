@@ -18,7 +18,6 @@ REQUIREMENTS:
 ✔  need records to be stored in database (encrypted)
 ✔  password storage
 ✔  .net core
-☐  data layer extracted via interface
 ✔  dependancy injection for unit testing
 
     userName: test
